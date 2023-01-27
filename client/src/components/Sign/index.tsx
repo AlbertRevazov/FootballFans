@@ -6,7 +6,6 @@ import * as yup from "yup";
 import { toast } from "react-toastify";
 import { loginUser, registerUser } from "../../redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-// import { userAuthThunk } from "../../redux/actions/AutnActions";
 
 const validationSchema = yup.object({
   email: yup.string().email("Неверный email").required("Обязательное поле"),
@@ -24,7 +23,7 @@ export const Sign = () => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const dispatch = useAppDispatch();
   const status = useAppSelector((state: any) => state?.users?.status);
-  
+
   const formik = useFormik({
     initialValues:
       toogle === true
@@ -39,9 +38,8 @@ export const Sign = () => {
             password: "",
           },
     validationSchema: validationSchema,
-    onSubmit: ()=>{}
+    onSubmit: () => {},
   });
-
 
   useEffect(() => {
     if (status) {
@@ -49,20 +47,24 @@ export const Sign = () => {
     }
   }, [status, navigate]);
 
-
-  const handleSubmit =  async () => {
+  const handleSubmit = async () => {
     try {
-    const response =  await  dispatch(toogle ? registerUser( formik.values ) : loginUser( formik.values ))
-       toast(status)
-       console.log(response.payload,']]]]]]]]]]]]]]]]]]]]]]]');   
-       navigate('/')
+      const response = await dispatch(
+        toogle ? registerUser(formik.values) : loginUser(formik.values)
+      );
+      toast(status);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <form onSubmit={(e)=>{ e.preventDefault()}}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       <Box
         sx={{
           width: "100%",
@@ -156,11 +158,7 @@ export const Sign = () => {
           alignItems: "center",
         }}
       >
-        <Button
-          sx={{ width: "290px" }}
-          type="submit"
-          onClick={handleSubmit}
-        >
+        <Button sx={{ width: "290px" }} type="submit" onClick={handleSubmit}>
           Submit
         </Button>
       </Box>

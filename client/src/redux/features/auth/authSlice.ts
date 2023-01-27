@@ -6,6 +6,7 @@ const initialState = {
   token: null,
   isLoading: false,
   status: null,
+  userName: "",
 };
 
 export const registerUser = createAsyncThunk(
@@ -70,6 +71,7 @@ export const authSlice = createSlice({
       state.token = null;
       state.isLoading = false;
       state.status = null;
+      state.userName = "";
     },
   },
   extraReducers: (builder) => {
@@ -83,10 +85,10 @@ export const authSlice = createSlice({
       state.status = action.payload.message;
       state.user = action.payload.user;
       state.token = action.payload.token;
+      state.userName = action.payload.user.name;
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.isLoading = false;
-      //   state.status = action.payload.message;
     });
 
     //// loginUser
@@ -99,10 +101,10 @@ export const authSlice = createSlice({
       state.status = action.payload.message;
       state.user = action.payload.user;
       state.token = action.payload.token;
+      state.userName = action.payload.user.name;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.isLoading = false;
-      //   state.status = action.payload.message;
     });
     //// Проверка авторизации
 
@@ -115,10 +117,10 @@ export const authSlice = createSlice({
       state.status = null;
       state.user = action.payload?.user;
       state.token = action.payload?.token;
+      state.userName = action.payload.user?.name;
     });
     builder.addCase(getMe.rejected, (state, action) => {
       state.isLoading = false;
-      //   state.status = action.payload.message;
     });
   },
 });
