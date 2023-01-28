@@ -12,23 +12,45 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   "users/registerUser",
   async ({ name, password, email, phone }: any) => {
+
+
+
+
     try {
-      const { data } = await axios.post("http://localhost:3003/users/signUp", {
+      const options = {
+        method: "POST",
+        url: "http://localhost:3003/users/signUp",
+      };
+      const { data } = await axios.post("/users/signUp", {
         name,
         password,
         email,
         phone,
       });
-
-      if (data.token) {
-        window.localStorage.setItem("token", data.token); //// записываем токен в локал сторэдж
-      }
-      return data;
+      return data
     } catch (error) {
       console.log(error);
     }
-  }
-);
+  });
+
+//     try {
+//       const { data } = await axios.post("http://localhost:3003/users/signUp", {
+//         name,
+//         password,
+//         email,
+//         phone,
+//       });
+
+//       if (data.token) {
+//         window.localStorage.setItem("token", data.token); // записываем токен в локал сторэдж
+//         return data;
+//       }
+     
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// );
 
 export const loginUser = createAsyncThunk(
   "users/signIn",
@@ -85,7 +107,7 @@ export const authSlice = createSlice({
       state.status = action.payload.message;
       state.user = action.payload.user;
       state.token = action.payload.token;
-      state.userName = action.payload.user.name;
+      state.userName = action.payload.user?.name;
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.isLoading = false;

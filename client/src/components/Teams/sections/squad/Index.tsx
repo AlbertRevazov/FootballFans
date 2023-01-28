@@ -45,7 +45,7 @@ export const Squad = ({ data }: SquadProps) => {
       <Divider sx={{ borderColor: "#202020" }} />
       {goalkeepers &&
         goalkeepers.map((man) => (
-          <Typography sx={styles.font}>
+          <Typography key={man.id} sx={styles.font}>
             {man.name} ({man.nationality})
           </Typography>
         ))}
@@ -53,7 +53,7 @@ export const Squad = ({ data }: SquadProps) => {
       <Divider sx={{ borderColor: "#202020" }} />
       {defencers &&
         defencers.map((man) => (
-          <Typography sx={styles.font}>
+          <Typography key={man.id} sx={styles.font}>
             {man.name} ({man.nationality})
           </Typography>
         ))}
@@ -61,7 +61,7 @@ export const Squad = ({ data }: SquadProps) => {
       <Divider sx={{ borderColor: "#202020" }} />
       {midfielders &&
         midfielders.map((man) => (
-          <Typography sx={styles.font}>
+          <Typography key={man.id} sx={styles.font}>
             {man.name} ({man.nationality})
           </Typography>
         ))}
@@ -69,7 +69,7 @@ export const Squad = ({ data }: SquadProps) => {
       <Divider sx={{ borderColor: "#202020" }} />
       {offencers &&
         offencers.map((man) => (
-          <Typography sx={styles.font}>
+          <Typography key={man.id} sx={styles.font}>
             {man.name} ({man.nationality})
           </Typography>
         ))}

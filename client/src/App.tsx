@@ -11,6 +11,7 @@ import { Sign } from "./components/Sign";
 import { useAppDispatch } from "./hooks/hooks";
 import { getMe } from "./redux/features/auth/authSlice";
 import { TeamsPage } from "./components/Teams";
+import AuthRoute from "./utils/AuthRoute";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -25,12 +26,34 @@ const App: React.FC = () => {
         <div className="flex">
           <Routes>
             <Route path="/" element={<MainPage />} />
-            <Route path="/matches" element={<MatchesPage />} />
+            <Route
+              path="/matches"
+              element={
+                <AuthRoute>
+                  <MatchesPage />
+                </AuthRoute>
+              }
+            />
+
             <Route path="/teams" element={<TeamsPage />}>
-              <Route path=":id" element={<TeamsPage />} />
+              <Route
+                path=":id"
+                element={
+                  <AuthRoute>
+                    <TeamsPage />
+                  </AuthRoute>
+                }
+              />
             </Route>
             <Route path="/sign" element={<Sign />} />
-            <Route path="/map" element={<MapPage />} />
+            <Route
+              path="/map"
+              element={
+                <AuthRoute>
+                  <MapPage />
+                </AuthRoute>
+              }
+            />
             <Route
               path="*"
               element={

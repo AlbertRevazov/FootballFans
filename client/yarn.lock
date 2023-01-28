@@ -1737,6 +1737,13 @@
     "@nodelib/fs.scandir" "2.1.5"
     "fastq" "^1.6.0"
 
+"@pbe/react-yandex-maps@^1.2.2":
+  "integrity" "sha512-2XT6XQ5MsrvDQWWy8whPRm/2wDbTdtABUERlTTU9IAJAvN2feJqNegKwbaEBIjrx1QcFlgsFAaBMN3DDp7SEBw=="
+  "resolved" "https://registry.npmjs.org/@pbe/react-yandex-maps/-/react-yandex-maps-1.2.2.tgz"
+  "version" "1.2.2"
+  dependencies:
+    "@types/yandex-maps" "2.1.28"
+
 "@pmmmwh/react-refresh-webpack-plugin@^0.5.3":
   "integrity" "sha512-j0Ya0hCFZPd4x40qLzbhGsh9TMtdb+CJQiso+WxLOPNasohq9cc5SNUcwsZaRH6++Xh91Xkm/xHCkuIiIu0LUA=="
   "resolved" "https://registry.npmjs.org/@pmmmwh/react-refresh-webpack-plugin/-/react-refresh-webpack-plugin-0.5.10.tgz"
@@ -2337,6 +2344,11 @@
   "version" "8.5.4"
   dependencies:
     "@types/node" "*"
+
+"@types/yandex-maps@2.1.28":
+  "integrity" "sha512-thMdTP38GxFhdYrgEv0p8i4k2NgI8uVkjijHU97HbMQZ+83bBLJODVbdGnQxHO0+EhwQIusuLVJux782FTT5yw=="
+  "resolved" "https://registry.npmjs.org/@types/yandex-maps/-/yandex-maps-2.1.28.tgz"
+  "version" "2.1.28"
 
 "@types/yargs-parser@*":
   "integrity" "sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA=="
@@ -8019,7 +8031,7 @@
     "loose-envify" "^1.4.0"
     "prop-types" "^15.6.2"
 
-"react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.2.0", "react@>= 16", "react@>=16", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0":
+"react@^16.8 || ^17.0 || ^18.0", "react@^16.8.0 || ^17 || ^18", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.x || ^17.x || ^18.x", "react@^17.0.0 || ^18.0.0", "react@^18.0.0", "react@^18.2.0", "react@>= 16", "react@>=16", "react@>=16.6.0", "react@>=16.8", "react@>=16.8.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"

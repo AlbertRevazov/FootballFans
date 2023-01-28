@@ -14,7 +14,6 @@ export const MatchesPage = () => {
   const { errorMessage }: any = useAppSelector((state) => state.matches);
 
   const status = errorsData[`${errorMessage}`];
-  console.log(status, "ppppppppppp");
 
   useEffect(() => {
     if (status) {
@@ -31,7 +30,7 @@ export const MatchesPage = () => {
   };
 
   const competionsTodayNames = competitionsToday();
-  //
+
   useEffect(() => {
     dispatch(getMatches());
   }, []);
@@ -100,10 +99,10 @@ export const MatchesPage = () => {
                           src="/images/referee.png"
                         />
                         <Typography sx={styles.refereeTitle}>
-                          {item.referees[0].name}
+                          {item.referees[0]?.name}
                         </Typography>
                         <Typography sx={styles.refereeTitle}>
-                          {item.referees[0].nationality}
+                          {item.referees[0]?.nationality}
                         </Typography>
                       </Box>
                     </Box>

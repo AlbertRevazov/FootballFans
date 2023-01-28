@@ -56,7 +56,7 @@ export const AboutTeam = ({ data }: AboutProps) => {
         <Typography sx={styles.font}>
           Принимает участие -
           {runningCompetitions?.map((tool) => (
-            <li>{tool.name}</li>
+            <li key={tool.id}>{tool.name}</li>
           ))}
         </Typography>
       </Box>
