@@ -6,28 +6,51 @@ const initialState = {
   token: null,
   isLoading: false,
   status: null,
+  userName: "",
 };
 
 export const registerUser = createAsyncThunk(
   "users/registerUser",
   async ({ name, password, email, phone }: any) => {
+
+
+
+
     try {
-      const { data } = await axios.post("http://localhost:3003/users/signUp", {
+      const options = {
+        method: "POST",
+        url: "http://localhost:3003/users/signUp",
+      };
+      const { data } = await axios.post("/users/signUp", {
         name,
         password,
         email,
         phone,
       });
-
-      if (data.token) {
-        window.localStorage.setItem("token", data.token); //// записываем токен в локал сторэдж
-      }
-      return data;
+      return data
     } catch (error) {
       console.log(error);
     }
-  }
-);
+  });
+
+//     try {
+//       const { data } = await axios.post("http://localhost:3003/users/signUp", {
+//         name,
+//         password,
+//         email,
+//         phone,
+//       });
+
+//       if (data.token) {
+//         window.localStorage.setItem("token", data.token); // записываем токен в локал сторэдж
+//         return data;
+//       }
+     
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// );
 
 export const loginUser = createAsyncThunk(
   "users/signIn",
@@ -70,6 +93,7 @@ export const authSlice = createSlice({
       state.token = null;
       state.isLoading = false;
       state.status = null;
+      state.userName = "";
     },
   },
   extraReducers: (builder) => {
@@ -83,10 +107,10 @@ export const authSlice = createSlice({
       state.status = action.payload.message;
       state.user = action.payload.user;
       state.token = action.payload.token;
+      state.userName = action.payload.user?.name;
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.isLoading = false;
-      //   state.status = action.payload.message;
     });
 
     //// loginUser
@@ -99,10 +123,10 @@ export const authSlice = createSlice({
       state.status = action.payload.message;
       state.user = action.payload.user;
       state.token = action.payload.token;
+      state.userName = action.payload.user.name;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.isLoading = false;
-      //   state.status = action.payload.message;
     });
     //// Проверка авторизации
 
@@ -115,10 +139,10 @@ export const authSlice = createSlice({
       state.status = null;
       state.user = action.payload?.user;
       state.token = action.payload?.token;
+      state.userName = action.payload.user?.name;
     });
     builder.addCase(getMe.rejected, (state, action) => {
       state.isLoading = false;
-      //   state.status = action.payload.message;
     });
   },
 });

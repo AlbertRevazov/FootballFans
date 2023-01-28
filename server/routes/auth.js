@@ -1,124 +1,120 @@
-const checkAuth = require('../utils')
-const { Router } = require('express')
-const router = new Router()
-const { Users } = require('../db/models')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const checkAuth = require("../utils");
+const { Router } = require("express");
+const router = new Router();
+const { Users } = require("../db/models");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-router.post('/signUp', async (req, res) => {
+router.post("/signUp", async (req, res) => {
   try {
-    const { email, password, name, phone } = req.body /// / запрашиваем информацию с фронта о юзере и пароле
+    const { email, password, name, phone } = req.body; /// / запрашиваем информацию с фронта о юзере и пароле
 
-    const isUsed = await Users.findOne({ where: { email } }) /// / ищем в базе данных по email
-    console.log(isUsed, '++++++++++++++++++++++')
+    const isUsed = await Users.findOne({ where: { email } }); /// / ищем в базе данных по email
     if (isUsed) {
       // если такой пользователь существует то отправляем сообщение и статус
       return res.json({
-        message: 'Такой пользователь уже существует!'
-      })
+        message: "Такой пользователь уже существует!",
+      });
     }
     if (!isUsed) {
-      const salt = bcrypt.genSaltSync(10) /// / хэшируем пароль
-      const hash = bcrypt.hashSync(password, salt)
+      const salt = bcrypt.genSaltSync(10); /// / хэшируем пароль
+      const hash = bcrypt.hashSync(password, salt);
 
       const newUser = await Users.create({
         /// / создаем нового юзера
         email,
         password: hash,
         name,
-        phone
-      })
-      console.log(JSON.parse(JSON.stringify(newUser)), ';;;;;;;;;;;;;;;;;;;')
+        phone,
+      });
 
       const token = jwt.sign(
         {
           // создаем JWT токен для авторизации и шифруем его по id юзера
-          id: newUser.id
+          id: newUser.id,
         },
-        'efdfdsgfdff6gdfg77fdgdfg', /// /секретная фраза
-        { expiresIn: '30d' } /// / срок действия токена
-      )
+        "efdfdsgfdff6gdfg77fdgdfg", /// /секретная фраза
+        { expiresIn: "30d" } /// / срок действия токена
+      );
 
-      await newUser.save() /// / записываем в БД
+      await newUser.save(); /// / записываем в БД
 
       return res.json({
         newUser,
         token,
-        message: 'Регистрация успешна!'
-      })
+        message: "Регистрация успешна!",
+      });
     }
   } catch (error) {
     res.json({
-      message: 'Ошибка при создании пользователя!'
-    })
+      message: "Ошибка при создании пользователя!",
+    });
   }
-})
+});
 
-router.post('/signIn', async (req, res) => {
+router.post("/signIn", async (req, res) => {
   try {
-    const { email, password } = req.body
-    const user = await Users.findOne({ where: { email } })
+    const { email, password } = req.body;
+    const user = await Users.findOne({ where: { email } });
     if (!user) {
       return res.json({
-        message: 'Такой пользователь не существует'
-      })
+        message: "Такой пользователь не существует",
+      });
     }
-    const correctPass = await bcrypt.compare(password, user.password)
+    const correctPass = await bcrypt.compare(password, user.password);
     // сравниваем пароль который пришел с фронта с паролем в базе данных
     if (!correctPass) {
       return res.json({
-        message: 'Неверный пароль.'
-      })
+        message: "Неверный пароль.",
+      });
     }
 
     const token = jwt.sign(
       {
         // создаем JWT токен для авторизации и шифруем его по id юзера
-        id: user.id
+        id: user.id,
       },
-      'efdfdsgfdff6gdfg77fdgdfg', // секретная фраза
-      { expiresIn: '30d' } // срок действия токкена
-    )
+      "efdfdsgfdff6gdfg77fdgdfg", // секретная фраза
+      { expiresIn: "30d" } // срок действия токкена
+    );
 
     res.json({
       token,
       user,
-      message: 'Вы вошли в систему!' /// / возвращаем на фронт токен юзера и сообщение
-    })
+      message: "Вы вошли в систему!", /// / возвращаем на фронт токен юзера и сообщение
+    });
 
     // throw Error(user)
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-})
+});
 
-router.get('/me', checkAuth, async (req, res) => {
+router.get("/me", checkAuth, async (req, res) => {
   try {
-    console.log(req.userId)
-    const user = await Users.findOne({ where: { id: req.userId } }) /// / ищем юзера в базе
-    console.log(JSON.parse(JSON.stringify(user)), '<><><>><')
+    const user = await Users.findOne({ where: { id: req.userId } }); /// / ищем юзера в базе
     if (!user) {
       return res.json({
-        message: 'Такой пользователь не существует'
-      })
+        message: "Такой пользователь не существует",
+      });
     }
     const token = jwt.sign(
       {
         // создаем JWT токен для авторизации и шифруем его по id юзера
-        id: user.id
+        id: user.id,
       },
-      'efdfdsgfdff6gdfg77fdgdfg', /// /секретная фраза
-      { expiresIn: '30d' } /// / срок действия токкена
-    )
+      "efdfdsgfdff6gdfg77fdgdfg", /// /секретная фраза
+      { expiresIn: "30d" } /// / срок действия токкена
+    );
     res.json({
       user,
-      token
-    })
+      token,
+    });
   } catch (error) {
     res.json({
-      message: 'Нет доступа!'
-    })
+      message: "Нет доступа!",
+    });
   }
-})
+});
 
-module.exports = router
+module.exports = router;

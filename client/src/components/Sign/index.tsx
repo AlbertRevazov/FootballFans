@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { toast } from "react-toastify";
 import { loginUser, registerUser } from "../../redux/features/auth/authSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-// import { userAuthThunk } from "../../redux/actions/AutnActions";
+import { styles } from "./styles";
 
 const validationSchema = yup.object({
   email: yup.string().email("Неверный email").required("Обязательное поле"),
@@ -24,7 +24,7 @@ export const Sign = () => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
   const dispatch = useAppDispatch();
   const status = useAppSelector((state: any) => state?.users?.status);
-  
+
   const formik = useFormik({
     initialValues:
       toogle === true
@@ -39,9 +39,8 @@ export const Sign = () => {
             password: "",
           },
     validationSchema: validationSchema,
-    onSubmit: ()=>{}
+    onSubmit: () => {},
   });
-
 
   useEffect(() => {
     if (status) {
@@ -49,31 +48,29 @@ export const Sign = () => {
     }
   }, [status, navigate]);
 
-
-  const handleSubmit =  async () => {
-    try {
-    const response =  await  dispatch(toogle ? registerUser( formik.values ) : loginUser( formik.values ))
-       toast(status)
-       console.log(response.payload,']]]]]]]]]]]]]]]]]]]]]]]');   
-       navigate('/')
+  const handleSubmit = async () => {
+    try {    
+      const response = await dispatch(
+        toogle ? registerUser(formik.values) : loginUser(formik.values)
+      );
+      toast(status);
+      if (response) {
+        navigate("/");
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <form onSubmit={(e)=>{ e.preventDefault()}}>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          marginTop: "30px",
-        }}
-      >
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
+      <Box sx={styles.root}>
         <TextField
-          sx={{ width: "290px", marginBottom: "30px" }}
+          sx={styles.textField}
           id="email"
           name="email"
           label="Email"
@@ -84,7 +81,7 @@ export const Sign = () => {
           helperText={formik.touched.email && formik.errors.email}
         />
         <TextField
-          sx={{ width: "290px", marginBottom: "30px" }}
+          sx={styles.textField}
           id="password"
           name="password"
           label="Password"
@@ -99,25 +96,25 @@ export const Sign = () => {
         {toogle && (
           <>
             <TextField
-              sx={{ width: "290px", marginBottom: "30px" }}
+              sx={styles.textField}
               id="phone"
               name="phone"
               label="Phone"
               type="phone"
               required
-              value={formik.values.phone}
+              value={formik.values.phone || ''}
               onChange={formik.handleChange}
               error={formik.touched.phone && Boolean(formik.errors.phone)}
               helperText={formik.touched.phone && formik.errors.phone}
             />
             <TextField
-              sx={{ width: "290px", marginBottom: "30px" }}
+              sx={styles.textField}
               id="name"
               name="name"
               label="name"
               type="name"
               required
-              value={formik.values.name}
+              value={formik.values.name || ''}
               onChange={formik.handleChange}
               error={formik.touched.name && Boolean(formik.errors.name)}
               helperText={formik.touched.name && formik.errors.name}
@@ -125,29 +122,14 @@ export const Sign = () => {
           </>
         )}
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginBottom: "30px",
-        }}
-      >
+      <Box sx={styles.toogleBox}>
         <Checkbox
           {...label}
           name="checkbox"
           onClick={() => setToogle(!toogle)}
           sx={{ "& .MuiSvgIcon-root": { fontSize: 28 } }}
         />
-        <Typography
-          sx={{
-            fontFamily: "Montserrat Alternates",
-            fontSize: "20px",
-            color: "#202020",
-          }}
-        >
-          Зарегистрироваться
-        </Typography>
+        <Typography sx={styles.font}>Зарегистрироваться</Typography>
       </Box>
       <Box
         sx={{
@@ -157,7 +139,9 @@ export const Sign = () => {
         }}
       >
         <Button
-          sx={{ width: "290px" }}
+          color="inherit"
+          variant="outlined"
+          sx={styles.button}
           type="submit"
           onClick={handleSubmit}
         >
