@@ -5,7 +5,6 @@ import { Sign } from "../components/Sign";
 const AuthRoute = ({ children }: any) => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-  console.log(token, "token");
 
   useEffect(() => {
     if (!token) {
@@ -13,6 +12,7 @@ const AuthRoute = ({ children }: any) => {
     }
   }, []);
 
+  // in the absence of a token, it does not push to the pages
   return token ? children : <Sign />;
 };
 

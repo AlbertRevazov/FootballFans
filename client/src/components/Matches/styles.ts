@@ -1,4 +1,10 @@
 export const styles = {
+  loading: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "40px 0 40px 0",
+  },
   root: {
     display: "flex",
     flexDirection: "column",
@@ -20,6 +26,7 @@ export const styles = {
     fontSize: "20px",
     color: "#202020",
     paddingRight: "15px",
+    ":hover": { color: "#0fabe7" },
   },
   font: {
     fontFamily: "Montserrat Alternates",

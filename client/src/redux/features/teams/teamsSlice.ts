@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const getTeams = createAsyncThunk(
-  "news/getTeams",
+  "matches/getTeams",
 
   async (payload: any) => {
     try {

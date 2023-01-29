@@ -12,6 +12,7 @@ import { useAppDispatch } from "./hooks/hooks";
 import { getMe } from "./redux/features/auth/authSlice";
 import { TeamsPage } from "./components/Teams";
 import AuthRoute from "./utils/AuthRoute";
+import { CompetitionPage } from "./components/Competitions";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -41,6 +42,16 @@ const App: React.FC = () => {
                 element={
                   <AuthRoute>
                     <TeamsPage />
+                  </AuthRoute>
+                }
+              />
+            </Route>
+            <Route path="/competition" element={<CompetitionPage />}>
+              <Route
+                path=":code"
+                element={
+                  <AuthRoute>
+                    <CompetitionPage />
                   </AuthRoute>
                 }
               />

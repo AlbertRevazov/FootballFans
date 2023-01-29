@@ -35,7 +35,6 @@ export const matchesSlice = createSlice({
     });
     builder.addCase(getMatches.fulfilled, (state, action) => {
       state.isLoading = false;
-      // console.log(action.payload.matches);
       state.games = action.payload?.matches;
     });
     builder.addCase(getMatches.rejected, (state, action) => {

@@ -5,18 +5,13 @@ import { checkIsAuth, logout } from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { styles } from "./styles";
+import { link } from "../../Types";
 
-export type link = {
-  id: number;
-  title: string;
-  to: string;
-  hide: boolean;
-  onclick?: boolean;
-};
+// adding for user image and view this on navBar
 
 export const Nav = () => {
-  const isAuth = useAppSelector(checkIsAuth);
   const name = useAppSelector((state) => state.users.userName);
+  const isAuth = useAppSelector(checkIsAuth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

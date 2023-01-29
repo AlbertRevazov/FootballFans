@@ -1,75 +1,44 @@
 import { Box, Container } from "@mui/material";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppDispatch } from "../../hooks/hooks";
 import { getTeams } from "../../redux/features/teams/teamsSlice";
+import { useTeamsHook } from "./hooks";
 import { AboutTeam } from "./sections/about";
 import { ContactDetails } from "./sections/contact";
 import { Squad } from "./sections/squad/Index";
+import { styles } from "./styles";
 
 export const TeamsPage = () => {
-  const params = useParams();
-  const { id } = params;
   const dispatch = useAppDispatch();
-  const { club } = useAppSelector((state) => state.teams);
-  const {
-    name,
-    shortName,
-    tla,
-    crest,
-    address,
-    website,
-    founded,
-    clubColors,
-    venue,
-    area,
-    squad,
-    coach,
-    runningCompetitions,
-  }: any = club;
-
-  const aboutData = {
-    area,
-    clubColors,
-    founded,
-    name,
-    venue,
-    crest,
-    shortName,
-    tla,
-    runningCompetitions,
-  };
-  const contactData = { website, address };
-  const squadData = { squad, coach };
+  const { aboutData, contactData, id, squadData, club, isLoading } =
+    useTeamsHook();
 
   useEffect(() => {
     dispatch(getTeams(id));
   }, [id]);
 
   return (
-    <Container>
-      {club && (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row-reverse",
-            justifyContent: "center",
-            margin: "30px 0 30px 0",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            {aboutData && <AboutTeam data={aboutData} />}
-
-            {contactData && <ContactDetails data={contactData} />}
-          </Box>
-          {squadData && <Squad data={squadData} />}
+    <>
+      {isLoading ? (
+        <Box sx={styles.loading}>
+          <img
+            style={{ width: "300px", height: "300px" }}
+            src="/gif/loading.gif"
+          />
         </Box>
+      ) : (
+        <Container>
+          {club && (
+            <Box sx={styles.root}>
+              <Box sx={styles.content}>
+                {aboutData && <AboutTeam data={aboutData} />}
+                {contactData && <ContactDetails data={contactData} />}
+              </Box>
+              {squadData && <Squad data={squadData} />}
+            </Box>
+          )}
+        </Container>
       )}
-    </Container>
+    </>
   );
 };

@@ -1,48 +1,18 @@
 import { Box, Divider, Typography } from "@mui/material";
+import { SquadProps } from "../../../../Types";
 import { styles } from "../../styles";
-
-interface SquadProps {
-  data: {
-    squad: [
-      {
-        id: number;
-        name: string;
-        position: string;
-        dateOfBirth: string;
-        nationality: string;
-      }
-    ];
-    coach: {
-      id: number;
-      firstName: string;
-      lastName: string;
-      name: string;
-      dateOfBirth: string;
-      nationality: string;
-    };
-  };
-}
+import { useSquadHook } from "./hook";
 
 export const Squad = ({ data }: SquadProps) => {
-  const { coach, squad } = data;
-  const goalkeepers = squad?.filter((item) => item.position === "Goalkeeper");
-  const defencers = squad?.filter((item) => item.position === "Defence");
-  const midfielders = squad?.filter((item) => item.position === "Midfield");
-  const offencers = squad?.filter((item) => item.position === "Offence");
+  const { coach, defencers, goalkeepers, midfielders, offencers } =
+    useSquadHook({ data });
 
   return (
-    <Box
-      sx={{
-        width: "400px",
-        padding: "40px",
-        boxShadow: "10px 5px 5px gray",
-        borderRadius: "24px",
-      }}
-    >
+    <Box sx={styles.sectionBox}>
       <Typography sx={styles.font}>Главный тренер - {coach?.name}</Typography>
-      <Divider sx={{ borderColor: "#202020" }} />
+      <Divider sx={styles.divider} />
       <Typography sx={styles.font}>Вратари</Typography>
-      <Divider sx={{ borderColor: "#202020" }} />
+      <Divider sx={styles.divider} />
       {goalkeepers &&
         goalkeepers.map((man) => (
           <Typography key={man.id} sx={styles.font}>
@@ -50,7 +20,7 @@ export const Squad = ({ data }: SquadProps) => {
           </Typography>
         ))}
       <Typography sx={styles.font}>Защитники</Typography>
-      <Divider sx={{ borderColor: "#202020" }} />
+      <Divider sx={styles.divider} />
       {defencers &&
         defencers.map((man) => (
           <Typography key={man.id} sx={styles.font}>
@@ -58,7 +28,7 @@ export const Squad = ({ data }: SquadProps) => {
           </Typography>
         ))}
       <Typography sx={styles.font}>Полузащитники</Typography>
-      <Divider sx={{ borderColor: "#202020" }} />
+      <Divider sx={styles.divider} />
       {midfielders &&
         midfielders.map((man) => (
           <Typography key={man.id} sx={styles.font}>
@@ -66,7 +36,7 @@ export const Squad = ({ data }: SquadProps) => {
           </Typography>
         ))}
       <Typography sx={styles.font}>Нападающие</Typography>
-      <Divider sx={{ borderColor: "#202020" }} />
+      <Divider sx={styles.divider} />
       {offencers &&
         offencers.map((man) => (
           <Typography key={man.id} sx={styles.font}>
