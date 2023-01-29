@@ -1,66 +1,23 @@
 import { Box, Button, TextField, Checkbox, Typography } from "@mui/material";
-import { useFormik } from "formik";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
 import { toast } from "react-toastify";
-import { loginUser, registerUser } from "../../redux/features/auth/authSlice";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { useAppSelector } from "../../hooks/hooks";
+import { useAuthHook } from "./hooks";
 import { styles } from "./styles";
 
-const validationSchema = yup.object({
-  email: yup.string().email("Неверный email").required("Обязательное поле"),
-  password: yup
-    .string()
-    .min(8, "Минимум 8 символов")
-    .required("Обязательное поле"),
-  name: yup.string().required("Обязательное поле"),
-  phone: yup.string().min(11, "Минимум 11 символов").length(11),
-});
-
 export const Sign = () => {
-  const [toogle, setToogle] = React.useState(false);
+  // toogle for login or register
   const navigate = useNavigate();
+  const [toogle, setToogle] = React.useState(false);
+  const { formik, handleSubmit, status } = useAuthHook(toogle);
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
-  const dispatch = useAppDispatch();
-  const status = useAppSelector((state: any) => state?.users?.status);
-
-  const formik = useFormik({
-    initialValues:
-      toogle === true
-        ? {
-            email: "",
-            password: "",
-            name: "",
-            phone: "",
-          }
-        : {
-            email: "",
-            password: "",
-          },
-    validationSchema: validationSchema,
-    onSubmit: () => {},
-  });
 
   useEffect(() => {
     if (status) {
       toast(status);
     }
   }, [status, navigate]);
-
-  const handleSubmit = async () => {
-    try {    
-      const response = await dispatch(
-        toogle ? registerUser(formik.values) : loginUser(formik.values)
-      );
-      toast(status);
-      if (response) {
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <form
@@ -102,7 +59,7 @@ export const Sign = () => {
               label="Phone"
               type="phone"
               required
-              value={formik.values.phone || ''}
+              value={formik.values.phone || ""}
               onChange={formik.handleChange}
               error={formik.touched.phone && Boolean(formik.errors.phone)}
               helperText={formik.touched.phone && formik.errors.phone}
@@ -114,7 +71,7 @@ export const Sign = () => {
               label="name"
               type="name"
               required
-              value={formik.values.name || ''}
+              value={formik.values.name || ""}
               onChange={formik.handleChange}
               error={formik.touched.name && Boolean(formik.errors.name)}
               helperText={formik.touched.name && formik.errors.name}

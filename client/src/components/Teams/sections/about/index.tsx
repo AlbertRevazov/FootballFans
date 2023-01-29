@@ -1,49 +1,17 @@
 import { Box, Typography } from "@mui/material";
 import { styles } from "../../styles";
-
-interface AboutProps {
-  data: {
-    runningCompetitions: [
-      {
-        code: string;
-        emblem: string;
-        id: number;
-        name: string;
-        type: string;
-      }
-    ];
-    clubColors: string;
-    founded: number;
-    name: string;
-    crest: string;
-    venue: string;
-    area: {
-      id: number;
-      name: string;
-      code: string;
-      flag: string;
-    };
-  };
-}
+import { AboutProps } from "../../../../Types";
 
 export const AboutTeam = ({ data }: AboutProps) => {
   const { area, clubColors, crest, founded, name, runningCompetitions, venue } =
     data;
 
   return (
-    <Box
-      sx={{
-        width: "400px",
-        boxShadow: "10px 5px 5px gray",
-        borderRadius: "24px",
-        padding: "40px",
-        marginTop: "32px",
-      }}
-    >
+    <Box sx={styles.sectionBox}>
       <Box sx={{ padding: "20px" }}>
-        <img src={crest} style={{ width: "100px", height: "100px" }} />
+        <img src={crest} style={styles.img} />
       </Box>
-      <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Box sx={styles.aboutContent}>
         {area?.name && (
           <Typography sx={styles.font}>Страна - {area.name}</Typography>
         )}

@@ -12,45 +12,19 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   "users/registerUser",
   async ({ name, password, email, phone }: any) => {
-
-
-
-
     try {
-      const options = {
-        method: "POST",
-        url: "http://localhost:3003/users/signUp",
-      };
       const { data } = await axios.post("/users/signUp", {
         name,
         password,
         email,
         phone,
       });
-      return data
+      return data;
     } catch (error) {
       console.log(error);
     }
-  });
-
-//     try {
-//       const { data } = await axios.post("http://localhost:3003/users/signUp", {
-//         name,
-//         password,
-//         email,
-//         phone,
-//       });
-
-//       if (data.token) {
-//         window.localStorage.setItem("token", data.token); // записываем токен в локал сторэдж
-//         return data;
-//       }
-     
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-// );
+  }
+);
 
 export const loginUser = createAsyncThunk(
   "users/signIn",
@@ -97,7 +71,7 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    //// RegisterUser
+    // RegisterUser
     builder.addCase(registerUser.pending, (state, action) => {
       state.isLoading = true;
       state.status = null;
