@@ -6,7 +6,6 @@ const initialState = {
   token: null,
   isLoading: false,
   status: null,
-  userName: "",
 };
 
 export const registerUser = createAsyncThunk(
@@ -58,6 +57,21 @@ export const getMe = createAsyncThunk("users/ItsMe", async () => {
   }
 });
 
+export const userAvatar = createAsyncThunk(
+  "users/userAvatar",
+  async (payload: any) => {
+    try {
+      const { data } = await axios
+        .post("users/userAvatar", payload, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "users",
   initialState,
@@ -67,7 +81,6 @@ export const authSlice = createSlice({
       state.token = null;
       state.isLoading = false;
       state.status = null;
-      state.userName = "";
     },
   },
   extraReducers: (builder) => {
@@ -81,7 +94,6 @@ export const authSlice = createSlice({
       state.status = action.payload.message;
       state.user = action.payload.user;
       state.token = action.payload.token;
-      state.userName = action.payload.user?.name;
     });
     builder.addCase(registerUser.rejected, (state, action) => {
       state.isLoading = false;
@@ -97,7 +109,6 @@ export const authSlice = createSlice({
       state.status = action.payload.message;
       state.user = action.payload.user;
       state.token = action.payload.token;
-      state.userName = action.payload.user.name;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.isLoading = false;
@@ -113,9 +124,24 @@ export const authSlice = createSlice({
       state.status = null;
       state.user = action.payload?.user;
       state.token = action.payload?.token;
-      state.userName = action.payload.user?.name;
     });
     builder.addCase(getMe.rejected, (state, action) => {
+      state.isLoading = false;
+    });
+    // Добавление Фото
+    builder.addCase(userAvatar.pending, (state) => {
+      state.isLoading = true;
+      state.status = null;
+    });
+    builder.addCase(userAvatar.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.status = null;
+      console.log(action.payload, ";;;;;;;;;;;;;;;;;");
+
+      // state.user = action.payload?.user;
+      // state.token = action.payload?.token;
+    });
+    builder.addCase(userAvatar.rejected, (state, action) => {
       state.isLoading = false;
     });
   },

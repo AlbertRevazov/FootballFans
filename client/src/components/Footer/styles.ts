@@ -9,6 +9,7 @@ export const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    flexWrap: 'wrap',
     padding: "20px 0 20px 0",
   },
   links: {

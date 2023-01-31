@@ -6,11 +6,13 @@ import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { styles } from "./styles";
 import { link } from "../../Types";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { MobileNav } from "./MobileNav";
 
 // adding for user image and view this on navBar
 
 export const Nav = () => {
-  const name = useAppSelector((state) => state.users.userName);
+  const isMobile = useMediaQuery("(max-width:900px)");
   const isAuth = useAppSelector(checkIsAuth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -31,27 +33,35 @@ export const Nav = () => {
   };
 
   return (
-    <Box sx={styles.root}>
-      <Box sx={styles.navBar}>
-        <Logo />
-        {links.map((item: link) => (
-          <Box
-            key={item.id}
-            onClick={item.onclick ? logoutHandle : () => {}}
-            hidden={item.hide}
-            sx={styles.link}
-          >
-            <Link to={item.to} color="#202020" style={styles.font}>
-              {item.title}
-            </Link>
+    <>
+      {!isMobile ? (
+        <Box sx={styles.root}>
+          <Box sx={styles.navBar}>
+            <Logo />
+            {links.map((item: link) => (
+              <Box
+                key={item.id}
+                onClick={item.onclick ? logoutHandle : () => {}}
+                hidden={item.hide}
+                sx={styles.link}
+              >
+                <Link to={item.to} color="#202020" style={styles.font}>
+                  {item.title}
+                </Link>
+              </Box>
+            ))}
           </Box>
-        ))}
-      </Box>
-      {isAuth && (
-        <Box sx={styles.welcome}>
-          <Typography sx={styles.font}>Добро пожаловать - {name}</Typography>
         </Box>
+      ) : (
+        <>
+          <Box sx={styles.root}>
+            <Box sx={styles.navBar}>
+              <Logo />
+              <MobileNav />
+            </Box>
+          </Box>
+        </>
       )}
-    </Box>
+    </>
   );
 };

@@ -9,6 +9,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/users", authRoute);
+app.get('/', (req,res)=> {
+})
 
 app.listen(process.env.PORT, () => {
   console.log("server start ", process.env.PORT);

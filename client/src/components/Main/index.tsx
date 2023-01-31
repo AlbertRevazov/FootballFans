@@ -14,7 +14,12 @@ export const MainPage = () => {
           <Typography sx={styles.targetTitle}>
             Цель нашего проекта заключается в том, чтобы искать единомышленников
           </Typography>
-          <img src="/images/fans.jpg" style={styles.img} />
+          <Box
+            sx={[
+              styles.img,
+              { margin: "20px", backgroundImage: "url(/images/fans.jpg)" },
+            ]}
+          />
         </Box>
       </Container>
       <Box sx={styles.stadiumBox}>
@@ -24,9 +29,9 @@ export const MainPage = () => {
       </Box>
       <Box sx={styles.pubBox}>
         <Typography sx={styles.pubTitle}>
-          Или же можете встретиться в пабе и пропустить кружку пива
+          Или же можете встретиться в пабе и пропустить по кружке пива
         </Typography>
-        <img src="/images/fans-on-pub.jpg" style={styles.img} />
+        <Box sx={styles.imgpub} />
       </Box>
       <Box sx={styles.mapBox}>
         <Typography sx={styles.mapTitle}>
