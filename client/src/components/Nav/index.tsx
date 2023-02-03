@@ -1,13 +1,13 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { Logo } from "../Logo";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { checkIsAuth, logout } from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { styles } from "./styles";
-import { link } from "../../Types";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { MobileNav } from "./MobileNav";
+import { link } from "../../types";
 
 // adding for user image and view this on navBar
 
@@ -16,7 +16,7 @@ export const Nav = () => {
   const isAuth = useAppSelector(checkIsAuth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
+  const { user } = useAppSelector((state) => state.users);
   const links = [
     { id: 1, title: "Главная", to: "/", hide: false },
     { id: 2, title: "Войти", to: "/sign", hide: isAuth },

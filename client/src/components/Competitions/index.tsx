@@ -16,9 +16,7 @@ export const CompetitionPage = () => {
   const { code } = params;
   const { isLoading } = useAppSelector((state) => state.competitions);
   const dispatch = useAppDispatch();
-  const { standings }: any = useAppSelector(
-    (state) => state?.competitions.tournament
-  );
+  const { tournament } = useAppSelector((state) => state?.competitions);
 
   useEffect(() => {
     scorers
@@ -54,7 +52,7 @@ export const CompetitionPage = () => {
           />
         </Box>
       ) : !scorers ? (
-        <CompetitionTable data={standings} />
+        <CompetitionTable data={tournament?.standings} />
       ) : (
         <ScorersPage />
       )}

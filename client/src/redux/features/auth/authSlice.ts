@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { UserState } from "../../../types";
 import axios from "../../../utils/axios";
 
-const initialState = {
+const initialState: UserState = {
   user: null,
   token: null,
   isLoading: false,
@@ -61,10 +62,9 @@ export const userAvatar = createAsyncThunk(
   "users/userAvatar",
   async (payload: any) => {
     try {
-      const { data } = await axios
-        .post("users/userAvatar", payload, {
-          headers: { "Content-Type": "multipart/form-data" },
-        })
+      const { data } = await axios.post("users/userAvatar", payload, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       return data;
     } catch (error) {
       console.log(error);
@@ -136,10 +136,10 @@ export const authSlice = createSlice({
     builder.addCase(userAvatar.fulfilled, (state, action) => {
       state.isLoading = false;
       state.status = null;
-      console.log(action.payload, ";;;;;;;;;;;;;;;;;");
+      // console.log(action.payload, ";;;;;;;;;;;;;;;;;");
 
-      // state.user = action.payload?.user;
-      // state.token = action.payload?.token;
+      state.user = action.payload?.user;
+      state.token = action.payload?.token;
     });
     builder.addCase(userAvatar.rejected, (state, action) => {
       state.isLoading = false;

@@ -1,8 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { Matches } from "../../../types";
 
-const initialState = {
-  games: [],
+export type Games = {};
+
+export type GamesState = {
+  games: Matches[] | null;
+  isLoading: boolean;
+  errorMessage: string;
+};
+
+const initialState: GamesState = {
+  games: null,
   isLoading: false,
   errorMessage: "none",
 };

@@ -1,17 +1,14 @@
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useAppSelector } from "../../../../hooks/hooks";
-import { Scorers } from "../../../../Types";
 import { styles } from "../../styles";
 
 export const ScorersPage = () => {
-  const { scorers }: any = useAppSelector(
-    (state) => state.competitions.topScorers
-  );
+  const { topScorers } = useAppSelector((state) => state.competitions);
 
   return (
     <TableContainer sx={{ margin: "40px 0 40px 0" }}>
@@ -26,7 +23,7 @@ export const ScorersPage = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {scorers?.map((row: Scorers, index: number) => (
+          {topScorers?.scorers.map((row, index: number) => (
             <TableRow key={row.player.id}>
               <TableCell sx={styles.darkTableCell}>{index + 1}</TableCell>
               <TableCell sx={styles.darkTableCell}>

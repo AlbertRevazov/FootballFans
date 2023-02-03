@@ -1,5 +1,5 @@
 import { Box, Link, Typography } from "@mui/material";
-import { ContactProps } from "../../../../Types";
+import { ContactProps } from "../../../../types";
 import { styles } from "../../styles";
 
 export const ContactDetails = ({ data }: ContactProps) => {

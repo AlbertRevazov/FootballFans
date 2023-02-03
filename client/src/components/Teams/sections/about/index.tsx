@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
+import { AboutProps } from "../../../../types";
 import { styles } from "../../styles";
-import { AboutProps } from "../../../../Types";
 
 export const AboutTeam = ({ data }: AboutProps) => {
   const { area, clubColors, crest, founded, name, runningCompetitions, venue } =

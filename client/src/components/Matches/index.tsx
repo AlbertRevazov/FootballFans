@@ -1,10 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { getMatches } from "../../redux/features/matches/matchesSlice";
-import { Matches } from "../../Types";
+import { Matches } from "../../types";
 import { useMatchesHook } from "./hooks";
 import { styles } from "./styles";
 
@@ -12,15 +11,12 @@ import { styles } from "./styles";
 
 export const MatchesPage = () => {
   const dispatch = useAppDispatch();
-  const { competionsTodayNames, status, isLoading }: any = useMatchesHook();
-  const { games }: any = useAppSelector((state) => state.matches);
+  const { competionsTodayNames, status, isLoading } = useMatchesHook();
+  const { games } = useAppSelector((state) => state.matches);
 
   useEffect(() => {
     dispatch(getMatches());
-    if (status) {
-      toast(status);
-    }
-  }, [status]);
+  }, []);
 
   return (
     <>
@@ -35,7 +31,7 @@ export const MatchesPage = () => {
         <Box sx={styles.root}>
           {competionsTodayNames &&
             competionsTodayNames.map(
-              (tool: any) =>
+              (tool) =>
                 games &&
                 games.map((item: Matches) => {
                   if (tool === item.competition.name) {
