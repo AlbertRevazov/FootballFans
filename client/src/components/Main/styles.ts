@@ -1,15 +1,26 @@
+import { Theme } from "@mui/material";
+
 export const styles = {
-  root: {
+  root: (theme: Theme) => ({
     backgroundImage: "url(/images/stadion.jpg)",
     backgroundSize: "100%",
     backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
     height: "530px",
     display: "flex",
+    flexWrap: "wrap",
     justifyContent: "end",
     alignItems: "center",
     padding: "0 90px 0 0",
-  },
-  title: {
+    marginTop: "20px",
+    [theme.breakpoints.down("md")]: {
+      backgroundSize: "cover",
+      borderRadius: "16px",
+      height: "430px",
+      padding: "0",
+    },
+  }),
+  title: (theme: Theme) => ({
     width: "800px",
     textAlign: "right",
     fontFamily: "Montserrat Alternates",
@@ -17,14 +28,24 @@ export const styles = {
     color: "#FFFFFF",
     fontWeight: "300",
     lineHeight: "60px",
-  },
-  targetBox: {
+    marginLeft: "20px",
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+      fontSize: "30px",
+      padding: "20px",
+      textAlign: "center",
+    },
+  }),
+  targetBox: (theme: Theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     marginTop: "50px",
-  },
-  targetTitle: {
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column-reverse",
+    },
+  }),
+  targetTitle: (theme: Theme) => ({
     width: "800px",
     textAlign: "left",
     fontFamily: "Montserrat Alternates",
@@ -32,13 +53,29 @@ export const styles = {
     color: "#A25F4B",
     fontWeight: "300",
     lineHeight: "50px",
-  },
-  img: {
-    width: "600px",
+    whiteSpace: "pre-wrap",
+    [theme.breakpoints.down("md")]: {
+      width: "90%",
+      fontSize: "25px",
+      padding: "20px",
+      textAlign: "center",
+      lineHeight: "40px",
+    },
+  }),
+  img: (theme: Theme) => ({
+    width: "100%",
     height: "400px",
-    borderRadius: "24px",
-  },
-  stadiumBox: {
+    backgroundImage: "url(/images/fans.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    [theme.breakpoints.down("md")]: {
+      backgroundSize: "cover",
+      height: "430px",
+      borderRadius: "16px",
+    },
+  }),
+  stadiumBox: (theme: Theme) => ({
     backgroundImage: "url(/images/fans-on-stadium.jpg)",
     backgroundSize: "100%",
     backgroundPosition: "center",
@@ -48,8 +85,15 @@ export const styles = {
     alignItems: "center",
     padding: "0 90px 0 0",
     marginTop: "50px",
-  },
-  stadiumTitle: {
+    [theme.breakpoints.down("md")]: {
+      backgroundSize: "cover",
+      height: "430px",
+      borderRadius: "16px",
+      justifyContent: "center",
+      padding: "0",
+    },
+  }),
+  stadiumTitle: (theme: Theme) => ({
     width: "800px",
     textAlign: "right",
     fontFamily: "Montserrat Alternates",
@@ -57,14 +101,38 @@ export const styles = {
     color: "#FFFFFF",
     fontWeight: "300",
     lineHeight: "60px",
-  },
-  pubBox: {
+    [theme.breakpoints.down("md")]: {
+      width: "90%",
+      fontSize: "30px",
+      padding: "20px",
+      textAlign: "center",
+      lineHeight: "40px",
+    },
+  }),
+  pubBox: (theme: Theme) => ({
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
     marginTop: "50px",
-  },
-  pubTitle: {
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+    },
+  }),
+  imgpub: (theme: Theme) => ({
+    width: "100%",
+    maxWidth:'700px',
+    height: "450px",
+    backgroundImage: "url(/images/pub.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    borderRadius: "16px",
+    [theme.breakpoints.down("md")]: {
+      backgroundSize: "cover",
+      height: "430px",
+    },
+  }),
+  pubTitle: (theme: Theme) => ({
     width: "500px",
     textAlign: "left",
     fontFamily: "Montserrat Alternates",
@@ -72,19 +140,31 @@ export const styles = {
     color: "#229542",
     fontWeight: "300",
     lineHeight: "50px",
-  },
-  mapBox: {
+    [theme.breakpoints.down("md")]: {
+      width: "90%",
+      fontSize: "30px",
+      padding: "20px",
+      textAlign: "center",
+      lineHeight: "40px",
+      marginBottom: "16px",
+    },
+  }),
+  mapBox: (theme: Theme) => ({
     backgroundImage: "url(/images/pitch.jpg)",
-    backgroundSize: "100%",
+    backgroundSize: "cover",
     backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
     height: "530px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     marginTop: "50px",
-  },
-  mapTitle: {
+    [theme.breakpoints.down("md")]: {
+      borderRadius: "16px",
+    },
+  }),
+  mapTitle:(theme: Theme) => ({
     width: "500px",
     textAlign: "center",
     fontFamily: "Montserrat Alternates",
@@ -92,7 +172,15 @@ export const styles = {
     color: "#FFFFFF",
     fontWeight: "300",
     lineHeight: "50px",
-  },
+    [theme.breakpoints.down('md')]:{
+      width: "90%",
+      fontSize: "30px",
+      padding: "20px",
+      textAlign: "center",
+      lineHeight: "40px",
+      marginBottom: "16px",
+    }
+  }),
   mapButton: {
     color: "#FFFFFF",
     marginTop: "20px",

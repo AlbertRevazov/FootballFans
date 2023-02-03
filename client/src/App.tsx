@@ -13,6 +13,7 @@ import { getMe } from "./redux/features/auth/authSlice";
 import { TeamsPage } from "./components/Teams";
 import AuthRoute from "./utils/AuthRoute";
 import { CompetitionPage } from "./components/Competitions";
+import { UserPage } from "./components/User";
 
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -46,6 +47,14 @@ const App: React.FC = () => {
                 }
               />
             </Route>
+            <Route
+              path="/lk"
+              element={
+                <AuthRoute>
+                 <UserPage/>
+                </AuthRoute>
+              }
+            ></Route>
             <Route path="/competition" element={<CompetitionPage />}>
               <Route
                 path=":code"

@@ -3,7 +3,7 @@ import { styles } from "./styles";
 
 // add styles.ts for this component
 
-export const Footer = () => {
+export const Footer: React.FC = () => {
   return (
     <Box sx={styles.root}>
       <Box sx={styles.content}>

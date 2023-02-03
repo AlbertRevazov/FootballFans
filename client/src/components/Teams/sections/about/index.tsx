@@ -1,8 +1,9 @@
 import { Box, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+import { AboutProps } from "../../../../types";
 import { styles } from "../../styles";
-import { AboutProps } from "../../../../Types";
 
-export const AboutTeam = ({ data }: AboutProps) => {
+export const AboutTeam: React.FC<AboutProps> = ({ data }) => {
   const { area, clubColors, crest, founded, name, runningCompetitions, venue } =
     data;
 
@@ -24,7 +25,14 @@ export const AboutTeam = ({ data }: AboutProps) => {
         <Typography sx={styles.font}>
           Принимает участие -
           {runningCompetitions?.map((tool) => (
-            <li key={tool.id}>{tool.name}</li>
+            <Link
+              key={tool.id}
+              to={`/competition/${tool.id}`}
+              style={{ cursor: "pointer", textDecoration: "none" }}
+              // onClick={handleClick}
+            >
+              <li>{tool.name}</li>
+            </Link>
           ))}
         </Typography>
       </Box>

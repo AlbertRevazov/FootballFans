@@ -10,15 +10,13 @@ import { Box, Button } from "@mui/material";
 import { ScorersPage } from "./sections/Scorers";
 import { styles } from "./styles";
 
-export const CompetitionPage = () => {
+export const CompetitionPage: React.FC = () => {
   const [scorers, setScorers] = useState(false);
   const params = useParams();
   const { code } = params;
   const { isLoading } = useAppSelector((state) => state.competitions);
   const dispatch = useAppDispatch();
-  const { standings }: any = useAppSelector(
-    (state) => state?.competitions.tournament
-  );
+  const { tournament } = useAppSelector((state) => state?.competitions);
 
   useEffect(() => {
     scorers
@@ -54,7 +52,7 @@ export const CompetitionPage = () => {
           />
         </Box>
       ) : !scorers ? (
-        <CompetitionTable data={standings} />
+        <CompetitionTable data={tournament?.standings} />
       ) : (
         <ScorersPage />
       )}

@@ -1,7 +1,5 @@
-import React from "react";
 import { useAppSelector } from "../../hooks/hooks";
 import { errorsData } from "../../redux/features/errorData";
-import { RootState } from "../../redux/store";
 
 export const useMatchesHook = () => {
   const { games } = useAppSelector((state) => state.matches);
@@ -9,15 +7,19 @@ export const useMatchesHook = () => {
   const { errorMessage } = useAppSelector((state) => state.matches);
   const status = errorsData[`${errorMessage}`];
 
-  // filter competitions that are available
+  // filter competitions that are available and add in object
   const competitionsToday = () => {
-    const array: any = [];
-    games.map((item: any) => {
-      array.push(item.competition.name);
-    });
-    return Array.from(new Set(array));
+    const competitionEmblems: any = {};
+    if (!!games?.length) {
+      games.map((item) => {
+        return (competitionEmblems[item.competition.name] =
+          item.competition.emblem);
+      });
+    }
+    return competitionEmblems;
   };
   const competionsTodayNames = competitionsToday();
-
-  return { competionsTodayNames, isLoading, status };
+  //just competition names array for accordion list
+  const competitionsNames = Object.keys(competionsTodayNames);
+  return { competionsTodayNames, competitionsNames, isLoading, status };
 };

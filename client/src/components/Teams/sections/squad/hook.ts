@@ -1,5 +1,4 @@
-import React from "react";
-import { SquadProps } from "../../../../Types";
+import { SquadProps } from "../../../../types";
 
 export const useSquadHook = ({ data }: SquadProps) => {
   const { coach, squad } = data;

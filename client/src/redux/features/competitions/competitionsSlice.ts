@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { TournamentState } from "../../../types";
 
-const initialState = {
-  tournament: [],
-  topScorers: [],
+const initialState: TournamentState = {
+  tournament: null,
+  topScorers: null,
   isLoading: false,
 };
 
@@ -73,6 +74,7 @@ export const competitionsSlice = createSlice({
     builder.addCase(getScorersCompetition.fulfilled, (state, action) => {
       state.isLoading = false;
       state.topScorers = action.payload;
+      console.log(action.payload);
     });
     builder.addCase(getScorersCompetition.rejected, (state) => {
       state.isLoading = false;

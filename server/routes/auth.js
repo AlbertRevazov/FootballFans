@@ -4,6 +4,7 @@ const router = new Router();
 const { Users } = require("../db/models");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const upload = require("../utils/multer");
 
 router.post("/signUp", async (req, res) => {
   try {
@@ -89,6 +90,26 @@ router.post("/signIn", async (req, res) => {
     console.log(error);
   }
 });
+router.post(
+  "/userAvatar",
+  checkAuth,
+  upload.single("avatar"),
+  async (req, res) => {
+    try {
+      const user = await Users.findOne({ where: { id: req.userId } });
+      if (user && upload.single) {
+        await Users.update(
+          { image: req.file.path.replace("public", "") },
+          { where: { id: req.userId } }
+        );
+        res.json({ user, message: "Фотография добавлена!" });
+      }
+      // res.json({ message: "Ошибка" });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 router.get("/me", checkAuth, async (req, res) => {
   try {

@@ -5,15 +5,16 @@ import { checkIsAuth, logout } from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { styles } from "./styles";
-import { link } from "../../Types";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { MobileNav } from "./MobileNav";
+import { link } from "../../types";
 
-// adding for user image and view this on navBar
-
-export const Nav = () => {
-  const name = useAppSelector((state) => state.users.userName);
+export const Nav: React.FC = () => {
+  const isMobile = useMediaQuery("(max-width:900px)");
   const isAuth = useAppSelector(checkIsAuth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { user } = useAppSelector((state) => state.users);
 
   const links = [
     { id: 1, title: "Главная", to: "/", hide: false },
@@ -31,27 +32,59 @@ export const Nav = () => {
   };
 
   return (
-    <Box sx={styles.root}>
-      <Box sx={styles.navBar}>
-        <Logo />
-        {links.map((item: link) => (
-          <Box
-            key={item.id}
-            onClick={item.onclick ? logoutHandle : () => {}}
-            hidden={item.hide}
-            sx={styles.link}
-          >
-            <Link to={item.to} color="#202020" style={styles.font}>
-              {item.title}
-            </Link>
+    <>
+      {!isMobile ? (
+        <Box sx={styles.root}>
+          <Box sx={styles.navBar}>
+            <Logo />
+            {links.map((item: link) => (
+              <Box
+                key={item.id}
+                onClick={item.onclick ? logoutHandle : () => {}}
+                hidden={item.hide}
+                sx={styles.link}
+              >
+                <Link to={item.to} color="#202020" style={styles.font}>
+                  {item.title}
+                </Link>
+              </Box>
+            ))}
           </Box>
-        ))}
-      </Box>
-      {isAuth && (
-        <Box sx={styles.welcome}>
-          <Typography sx={styles.font}>Добро пожаловать - {name}</Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}
+          >
+            <Link to={"/lk"} style={{ textDecoration: "none" }}>
+              <Typography
+                sx={[
+                  styles.font,
+                  {
+                    ":hover": {
+                      borderBottom: "3px solid darkseagreen",
+                    },
+                  },
+                ]}
+              >
+                Личный Кабинет
+              </Typography>
+            </Link>
+
+            <img style={{ width: "60px", height: "60px" }} src={user?.image} />
+          </Box>
         </Box>
+      ) : (
+        <>
+          <Box sx={styles.root}>
+            <Box sx={styles.navBar}>
+              <Logo />
+              <MobileNav />
+            </Box>
+          </Box>
+        </>
       )}
-    </Box>
+    </>
   );
 };
