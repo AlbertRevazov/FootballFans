@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { AboutProps } from "../../../../types";
 import { styles } from "../../styles";
 
-export const AboutTeam = ({ data }: AboutProps) => {
+export const AboutTeam: React.FC<AboutProps> = ({ data }) => {
   const { area, clubColors, crest, founded, name, runningCompetitions, venue } =
     data;
 

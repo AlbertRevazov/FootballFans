@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { string } from "yup";
+import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { userAvatar } from "../../redux/features/auth/authSlice";
-export const UserPage = () => {
+
+export const UserPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { user }: any = useAppSelector((s) => s.users);
   const [userInfo, setuserInfo] = useState({
-    file: new Blob,
+    file: new Blob(),
     filepreview: null || "",
     user: user || null,
   });
@@ -14,7 +14,7 @@ export const UserPage = () => {
   const sendPhoto = () => {
     const formdata = new FormData();
     formdata.append("avatar", userInfo.file);
-    formdata.append("user", userInfo.user?.email);  
+    formdata.append("user", userInfo.user?.email);
     dispatch(userAvatar(formdata));
   };
 

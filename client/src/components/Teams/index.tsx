@@ -8,7 +8,7 @@ import { ContactDetails } from "./sections/contact";
 import { Squad } from "./sections/squad/Index";
 import { styles } from "./styles";
 
-export const TeamsPage = () => {
+export const TeamsPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { aboutData, contactData, id, squadData, club, isLoading } =
     useTeamsHook();

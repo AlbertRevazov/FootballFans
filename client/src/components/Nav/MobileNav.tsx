@@ -12,7 +12,7 @@ import Divider from "@mui/material/Divider";
 
 type Anchor = "Menu";
 
-export const MobileNav = () => {
+export const MobileNav: React.FC = () => {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(checkIsAuth);
   // const { user }: any = useAppSelector((state) => state.users);

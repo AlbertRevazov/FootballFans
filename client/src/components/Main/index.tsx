@@ -1,7 +1,7 @@
 import { Box, Button, Container, Link, Typography } from "@mui/material";
 import { styles } from "./styles";
 
-export const MainPage = () => {
+export const MainPage: React.FC = () => {
   return (
     <>
       <Box sx={styles.root}>

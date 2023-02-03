@@ -11,7 +11,7 @@ import { link } from "../../types";
 
 // adding for user image and view this on navBar
 
-export const Nav = () => {
+export const Nav: React.FC = () => {
   const isMobile = useMediaQuery("(max-width:900px)");
   const isAuth = useAppSelector(checkIsAuth);
   const dispatch = useAppDispatch();

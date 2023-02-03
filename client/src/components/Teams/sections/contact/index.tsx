@@ -2,7 +2,7 @@ import { Box, Link, Typography } from "@mui/material";
 import { ContactProps } from "../../../../types";
 import { styles } from "../../styles";
 
-export const ContactDetails = ({ data }: ContactProps) => {
+export const ContactDetails: React.FC<ContactProps> = ({ data }) => {
   const { address, website } = data;
 
   return (

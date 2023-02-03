@@ -2,7 +2,9 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sign } from "../components/Sign";
 
-const AuthRoute = ({ children }: any) => {
+// typed children
+
+const AuthRoute: React.FC<any> = (children) => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -13,6 +15,7 @@ const AuthRoute = ({ children }: any) => {
   }, []);
 
   // in the absence of a token, it does not push to the pages
+
   return token ? children : <Sign />;
 };
 

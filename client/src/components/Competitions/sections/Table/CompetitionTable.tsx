@@ -12,7 +12,7 @@ interface CompetitionTableProps {
   data: Standings[] | undefined;
 }
 
-export const CompetitionTable = (data: CompetitionTableProps) => {
+export const CompetitionTable: React.FC<CompetitionTableProps> = (data) => {
   return (
     <Box sx={{ margin: "40px 0 40px 0" }}>
       <TableContainer>

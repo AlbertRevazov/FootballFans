@@ -7,7 +7,7 @@ import TableRow from "@mui/material/TableRow";
 import { useAppSelector } from "../../../../hooks/hooks";
 import { styles } from "../../styles";
 
-export const ScorersPage = () => {
+export const ScorersPage: React.FC = () => {
   const { topScorers } = useAppSelector((state) => state.competitions);
 
   return (

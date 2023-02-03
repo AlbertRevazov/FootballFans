@@ -2,11 +2,10 @@ import { Box, Button, TextField, Checkbox, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useAppSelector } from "../../hooks/hooks";
 import { useAuthHook } from "./hooks";
 import { styles } from "./styles";
 
-export const Sign = () => {
+export const Sign: React.FC = () => {
   // toogle for login or register
   const navigate = useNavigate();
   const [toogle, setToogle] = React.useState(false);

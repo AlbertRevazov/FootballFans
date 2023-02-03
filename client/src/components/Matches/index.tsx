@@ -9,7 +9,7 @@ import { styles } from "./styles";
 
 // it makes sense to finish the accordions for the competition
 
-export const MatchesPage = () => {
+export const MatchesPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { competionsTodayNames, status, isLoading } = useMatchesHook();
   const { games } = useAppSelector((state) => state.matches);
