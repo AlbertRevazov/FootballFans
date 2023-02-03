@@ -71,6 +71,14 @@ export const userAvatar = createAsyncThunk(
     }
   }
 );
+export const deleteAvatar = createAsyncThunk("users/deleteAvatar", async () => {
+  try {
+    const { data } = await axios.get("/users/delete", {});
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export const authSlice = createSlice({
   name: "users",
@@ -140,6 +148,21 @@ export const authSlice = createSlice({
       state.token = action.payload?.token;
     });
     builder.addCase(userAvatar.rejected, (state, action) => {
+      state.isLoading = false;
+    });
+
+    // Удаление фото
+    builder.addCase(deleteAvatar.pending, (state) => {
+      state.isLoading = true;
+      state.status = null;
+    });
+    builder.addCase(deleteAvatar.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.status = null;
+      state.user = action.payload?.user;
+      state.token = action.payload?.token;
+    });
+    builder.addCase(deleteAvatar.rejected, (state, action) => {
       state.isLoading = false;
     });
   },

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import { Logo } from "../Logo";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { checkIsAuth, logout } from "../../redux/features/auth/authSlice";
@@ -71,8 +71,11 @@ export const Nav: React.FC = () => {
                 Личный Кабинет
               </Typography>
             </Link>
-
-            <img style={{ width: "60px", height: "60px" }} src={user?.image} />
+            <Avatar
+              sx={{ marginLeft: "12px" }}
+              alt={user?.name}
+              src={user?.image}
+            />
           </Box>
         </Box>
       ) : (

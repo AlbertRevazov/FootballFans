@@ -1,6 +1,11 @@
 import React from "react";
 import { useAppDispatch } from "../../../../hooks/hooks";
-import { userAvatar } from "../../../../redux/features/auth/authSlice";
+import {
+  deleteAvatar,
+  userAvatar,
+} from "../../../../redux/features/auth/authSlice";
+
+
 
 export const useEditUserHooks = () => {
   const dispatch = useAppDispatch();
@@ -23,6 +28,11 @@ export const useEditUserHooks = () => {
     return setError("Не выбран файл");
   };
 
+  const deletePhoto = () => {
+    dispatch(deleteAvatar());
+    setEdit(!edit);
+  };
+
   const handleInputChange = (event: any) => {
     setuserInfo({
       ...userInfo,
@@ -30,5 +40,12 @@ export const useEditUserHooks = () => {
       filepreview: URL.createObjectURL(event.target.files[0]),
     });
   };
-  return { handleInputChange, edit, setEdit, error, setError, sendPhoto };
+  return {
+    handleInputChange,
+    edit,
+    setEdit,
+    error,
+    sendPhoto,
+    deletePhoto,
+  };
 };

@@ -3,10 +3,11 @@ import React from "react";
 import { useAppSelector } from "../../../../hooks/hooks";
 import { useEditUserHooks } from "./hooks";
 import { styles } from "./styles";
+import Avatar from "@mui/material/Avatar";
 
 export const Photo: React.FC = () => {
   const { user } = useAppSelector((state) => state.users);
-  const { handleInputChange, edit, setEdit, error, setError, sendPhoto } =
+  const { handleInputChange, edit, setEdit, error, deletePhoto, sendPhoto } =
     useEditUserHooks();
 
   return (
@@ -32,35 +33,18 @@ export const Photo: React.FC = () => {
             name="upload_file"
             onChange={handleInputChange}
           />
-          <Box
-            sx={{
-              width: "100%",
-              marginTop: "24px",
-              display: "flex",
-              justifyContent: "space-around",
-              alignItems: "center",
-            }}
-          >
-            <Button
-              sx={[
-                styles.button,
-                {
-                  ":hover": {
-                    backgroundColor: "darkseagreen",
-                    color: "#FFFFFF",
-                  },
-                },
-              ]}
-              onClick={sendPhoto}
-              type="submit"
-            >
+          <Box sx={styles.buttonWrapper}>
+            <Button sx={styles.accept} onClick={sendPhoto} type="submit">
               Изменить
             </Button>
+            {!!user?.image && (
+              <Button sx={styles.delete} onClick={deletePhoto} type="submit">
+                Удалить
+              </Button>
+            )}
+
             <Button
-              sx={[
-                styles.button,
-                { ":hover": { backgroundColor: "#202020", color: "#FFFFFF" } },
-              ]}
+              sx={styles.cancel}
               onClick={() => setEdit(!edit)}
               type="submit"
             >
@@ -69,14 +53,15 @@ export const Photo: React.FC = () => {
           </Box>
         </Box>
       ) : (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <img src={user?.image} style={styles.image} />
+        <Box sx={styles.flexColumn}>
+          {user?.image ? (
+            <Avatar
+              src={user?.image}
+              sx={{ width: "300px", height: "300px" }}
+            />
+          ) : (
+            <Avatar sx={{ width: "300px", height: "300px" }} src={user?.name} />
+          )}
           <Typography
             sx={[styles.font, { cursor: "pointer", marginTop: "20px" }]}
             onClick={() => setEdit(!edit)}

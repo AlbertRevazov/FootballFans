@@ -91,7 +91,7 @@ export const MatchesAccordion: React.FC = () => {
                                   {game.awayTeam.name}{" "}
                                   <img
                                     style={styles.emblem}
-                                    src={game.homeTeam.crest}
+                                    src={game.awayTeam.crest}
                                   />
                                 </Typography>
                               </Link>
