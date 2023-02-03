@@ -99,7 +99,7 @@ router.post(
       const user = await Users.findOne({ where: { id: req.userId } });
       if (user && upload.single) {
         await Users.update(
-          { image: req.file.path.replace("..\\uploads\\", "") },
+          { image: req.file.path.replace("public", "") },
           { where: { id: req.userId } }
         );
         res.json({ user, message: "Фотография добавлена!" });

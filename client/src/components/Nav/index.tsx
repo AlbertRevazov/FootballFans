@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Logo } from "../Logo";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { checkIsAuth, logout } from "../../redux/features/auth/authSlice";
@@ -9,14 +9,13 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { MobileNav } from "./MobileNav";
 import { link } from "../../types";
 
-// adding for user image and view this on navBar
-
 export const Nav: React.FC = () => {
   const isMobile = useMediaQuery("(max-width:900px)");
   const isAuth = useAppSelector(checkIsAuth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.users);
+
   const links = [
     { id: 1, title: "Главная", to: "/", hide: false },
     { id: 2, title: "Войти", to: "/sign", hide: isAuth },
@@ -50,6 +49,30 @@ export const Nav: React.FC = () => {
                 </Link>
               </Box>
             ))}
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+            }}
+          >
+            <Link to={"/lk"} style={{ textDecoration: "none" }}>
+              <Typography
+                sx={[
+                  styles.font,
+                  {
+                    ":hover": {
+                      borderBottom: "3px solid darkseagreen",
+                    },
+                  },
+                ]}
+              >
+                Личный Кабинет
+              </Typography>
+            </Link>
+
+            <img style={{ width: "60px", height: "60px" }} src={user?.image} />
           </Box>
         </Box>
       ) : (

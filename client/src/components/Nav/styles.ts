@@ -3,7 +3,7 @@ import { Theme } from "@mui/material";
 export const styles = {
   root: (theme: Theme) => ({
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-around",
     backgroundColor: "floralwhite",
     width: "100%",
     height: "90px",
@@ -21,6 +21,12 @@ export const styles = {
   },
   link: {
     marginLeft: "20px",
+    ":hover": {
+      borderBottom: "3px solid darkseagreen",
+    },
+  },
+  lk: {
+    textDecoration: "none",
     ":hover": {
       borderBottom: "3px solid darkseagreen",
     },

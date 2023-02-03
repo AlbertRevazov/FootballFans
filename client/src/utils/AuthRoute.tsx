@@ -4,7 +4,7 @@ import { Sign } from "../components/Sign";
 
 // typed children
 
-const AuthRoute: React.FC<any> = (children) => {
+const AuthRoute: React.FC<any> = ({ children }) => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 

@@ -1,61 +1,29 @@
-import { useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { userAvatar } from "../../redux/features/auth/authSlice";
+import { Box } from "@mui/material";
+import React, { useEffect } from "react";
+import { useAppSelector } from "../../hooks/hooks";
+import { Info } from "./LK/Edit/Info";
+import { Photo } from "./LK/Edit/Photo";
 
 export const UserPage: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { user }: any = useAppSelector((s) => s.users);
-  const [userInfo, setuserInfo] = useState({
-    file: new Blob(),
-    filepreview: null || "",
-    user: user || null,
-  });
+  const { user } = useAppSelector((s) => s.users);
 
-  const sendPhoto = () => {
-    const formdata = new FormData();
-    formdata.append("avatar", userInfo.file);
-    formdata.append("user", userInfo.user?.email);
-    dispatch(userAvatar(formdata));
-  };
-
-  const handleInputChange = (event: any) => {
-    setuserInfo({
-      ...userInfo,
-      file: event.target.files[0],
-      filepreview: URL.createObjectURL(event.target.files[0]),
-    });
-  };
+  useEffect(() => {}, [user?.image]);
 
   return (
-    <div>
-      {/* <input
-        type="text"
-        value={""}
-        ref={myText}
-        name="myText"
-        placeholder="image"
-      /> */}
-      <div className="form-row">
-        <label className="text-white">Select Image :</label>
-        <input
-          type="file"
-          className="form-control"
-          name="upload_file"
-          onChange={handleInputChange}
-        />
-        {userInfo.filepreview !== null ? (
-          <img
-            className="previewimg"
-            style={{ width: "50px", height: "50px" }}
-            src={userInfo.filepreview}
-            alt="UploadImage"
-          />
-        ) : null}
-      </div>
-      <button type="submit" className="btn btn-dark" onClick={sendPhoto}>
-        {" "}
-        Save{" "}
-      </button>
-    </div>
+    <Box
+      sx={{
+        minHeight: "650px",
+        display: "flex",
+        justifyContent: "space-around",
+        alignItems: "center",
+      }}
+    >
+      <Box>
+        <Info />
+      </Box>
+      <Box>
+        <Photo />
+      </Box>
+    </Box>
   );
 };

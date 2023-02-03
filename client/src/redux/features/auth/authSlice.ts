@@ -136,8 +136,6 @@ export const authSlice = createSlice({
     builder.addCase(userAvatar.fulfilled, (state, action) => {
       state.isLoading = false;
       state.status = null;
-      // console.log(action.payload, ";;;;;;;;;;;;;;;;;");
-
       state.user = action.payload?.user;
       state.token = action.payload?.token;
     });
