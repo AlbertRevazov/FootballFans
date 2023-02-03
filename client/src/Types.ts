@@ -74,6 +74,9 @@ export type Matches = {
   awayTeam: {
     id: number;
     name: string;
+    shortName: string;
+    tla: string;
+    crest: string;
   };
   area: {
     ensignUrl: string;
@@ -89,6 +92,9 @@ export type Matches = {
   homeTeam: {
     id: number;
     name: string;
+    shortName: string;
+    tla: string;
+    crest: string;
   };
   id: number;
   lastUpdated: string;

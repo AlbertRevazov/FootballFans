@@ -6,20 +6,20 @@ export const useMatchesHook = () => {
   const { isLoading } = useAppSelector((state) => state.matches);
   const { errorMessage } = useAppSelector((state) => state.matches);
   const status = errorsData[`${errorMessage}`];
-  console.log(games);
 
-  // filter competitions that are available
+  // filter competitions that are available and add in object
   const competitionsToday = () => {
-    const array: string[] = [];
+    const competitionEmblems: any = {};
     if (!!games?.length) {
       games.map((item) => {
-        return array.push(item.competition.name);
+        return (competitionEmblems[item.competition.name] =
+          item.competition.emblem);
       });
     }
-
-    return Array.from(new Set(array));
+    return competitionEmblems;
   };
   const competionsTodayNames = competitionsToday();
-
-  return { competionsTodayNames, isLoading, status };
+  //just competition names array for accordion list
+  const competitionsNames = Object.keys(competionsTodayNames);
+  return { competionsTodayNames, competitionsNames, isLoading, status };
 };

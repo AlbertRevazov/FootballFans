@@ -11,6 +11,20 @@ export const styles = {
     justifyContent: "center",
     alignItems: "center",
   },
+  font: {
+    fontFamily: "Montserrat Alternates",
+    fontSize: "26px",
+    cursor: "pointer",
+    color: "#202020",
+  },
+  refereeBox: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  links: {
+    textDecoration: "none",
+  },
   match: {
     display: "flex",
     flexDirection: "column",
@@ -28,20 +42,6 @@ export const styles = {
     paddingRight: "15px",
     ":hover": { color: "#0fabe7" },
   },
-  font: {
-    fontFamily: "Montserrat Alternates",
-    fontSize: "26px",
-    cursor: "pointer",
-    color: "#202020",
-  },
-  links: {
-    textDecoration: "none",
-  },
-  refereeBox: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   refereeTitle: {
     display: "flex",
     justifyContent: "center",
@@ -50,5 +50,10 @@ export const styles = {
     fontFamily: "Montserrat Alternates",
     fontSize: "16px",
     color: "#202020",
+  },
+  emblem: {
+    width: "20px",
+    height: "20px",
+    marginRight: "5px",
   },
 } as any;
