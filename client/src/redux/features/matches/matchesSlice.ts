@@ -1,19 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Matches } from "../../../types";
-
-export type Games = {};
-
-export type GamesState = {
-  games: Matches[] | null;
-  isLoading: boolean;
-  errorMessage: string;
-};
+import { GamesState, Matches } from "../../../types";
 
 const initialState: GamesState = {
   games: null,
   isLoading: false,
-  errorMessage: "none",
+  errorMessage: null,
 };
 
 export const getMatches = createAsyncThunk("matches/getMatches", async () => {
@@ -44,11 +36,11 @@ export const matchesSlice = createSlice({
     });
     builder.addCase(getMatches.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.games = action.payload?.matches;
+      state.games = action.payload?.matches;      
     });
     builder.addCase(getMatches.rejected, (state, action) => {
       state.isLoading = false;
-      state.errorMessage = action.error.message as string;
+      state.errorMessage = action.error.message
     });
   },
 });

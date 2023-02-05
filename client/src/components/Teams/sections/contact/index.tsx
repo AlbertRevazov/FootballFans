@@ -6,7 +6,7 @@ export const ContactDetails: React.FC<ContactProps> = ({ data }) => {
   const { address, website } = data;
 
   return (
-    <Box sx={[styles.sectionBox, { marginTop: "32px" }]}>
+    <Box sx={[styles.sectionBox, { marginTop: "32px", height: "400px" }]}>
       <>
         <Typography sx={styles.font}> address - {address}</Typography>
         <Typography sx={styles.font}>

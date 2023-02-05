@@ -142,18 +142,14 @@ router.post(
 router.get("/delete", checkAuth, async (req, res) => {
   try {
     const user = await Users.findOne({ where: { id: req.userId } }); // ищем юзера в базе
-    console.log(req.userId);
     if (!user) {
       return res.json({
         message: "Такой пользователь не существует",
       });
     }
     if (user) {
-      await Users.update(
-        { image: null, },
-        { where: { id: req.userId } }
-      );
-     return res.json({ user, message: "Фотография добавлена!" });
+      await Users.update({ image: null }, { where: { id: req.userId } });
+      return res.json({ user, message: "Фотография добавлена!" });
     }
   } catch (error) {
     res.json({

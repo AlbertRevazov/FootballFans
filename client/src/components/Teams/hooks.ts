@@ -1,8 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../hooks/hooks";
 
+// todo typed thix component
 export const useTeamsHook = () => {
-  const { club, isLoading } = useAppSelector((state) => state.teams);
+  const { club, isLoading, errorMessage } = useAppSelector(
+    (state) => state.teams
+  );
   const {
     name,
     shortName,
@@ -36,5 +39,13 @@ export const useTeamsHook = () => {
   const params = useParams();
   const { id } = params;
 
-  return { isLoading, id, contactData, squadData, aboutData, club };
+  return {
+    isLoading,
+    id,
+    errorMessage,
+    contactData,
+    squadData,
+    aboutData,
+    club,
+  };
 };

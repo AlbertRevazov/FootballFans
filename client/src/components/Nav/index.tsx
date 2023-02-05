@@ -50,33 +50,35 @@ export const Nav: React.FC = () => {
               </Box>
             ))}
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-around",
-              alignItems: "center",
-            }}
-          >
-            <Link to={"/lk"} style={{ textDecoration: "none" }}>
-              <Typography
-                sx={[
-                  styles.font,
-                  {
-                    ":hover": {
-                      borderBottom: "3px solid darkseagreen",
+          {isAuth && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
+              <Link to={"/lk"} style={{ textDecoration: "none" }}>
+                <Typography
+                  sx={[
+                    styles.font,
+                    {
+                      ":hover": {
+                        borderBottom: "3px solid darkseagreen",
+                      },
                     },
-                  },
-                ]}
-              >
-                Личный Кабинет
-              </Typography>
-            </Link>
-            <Avatar
-              sx={{ marginLeft: "12px" }}
-              alt={user?.name}
-              src={user?.image}
-            />
-          </Box>
+                  ]}
+                >
+                  Личный Кабинет
+                </Typography>
+              </Link>
+              <Avatar
+                sx={{ marginLeft: "12px" }}
+                alt={user?.name}
+                src={user?.image}
+              />
+            </Box>
+          )}
         </Box>
       ) : (
         <>

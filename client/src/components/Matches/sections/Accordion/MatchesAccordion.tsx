@@ -7,14 +7,28 @@ import { Link } from "react-router-dom";
 import { Matches } from "../../../../types";
 import { useAppSelector } from "../../../../hooks/hooks";
 import { styles } from "../../styles";
+import { errorsData } from "../../../../utils/constants";
 
 export const MatchesAccordion: React.FC = () => {
   const { competionsTodayNames, competitionsNames } = useMatchesHook();
-  const { games } = useAppSelector((state) => state.matches);
+  const { games, errorMessage } = useAppSelector((state) => state.matches);
 
   return (
     <>
-      {!!competitionsNames?.length &&
+      {!!errorMessage ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alighItems: "center",
+            margin: "60px",
+          }}
+        >
+          <Typography sx={[styles.font, { color: "red" }]}>
+            {errorsData[`${errorMessage}`]}
+          </Typography>
+        </Box>
+      ) : (
         competitionsNames.map((item: string, index) => {
           return (
             <Accordion key={index}>
@@ -139,7 +153,8 @@ export const MatchesAccordion: React.FC = () => {
               </AccordionDetails>
             </Accordion>
           );
-        })}
+        })
+      )}
     </>
   );
 };
