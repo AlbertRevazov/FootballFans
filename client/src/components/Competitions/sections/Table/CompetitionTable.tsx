@@ -14,8 +14,6 @@ interface CompetitionTableProps {
 }
 
 export const CompetitionTable: React.FC<CompetitionTableProps> = ({ data }) => {
-  console.log(data);
-
   return (
     <>
       {!data ? (
