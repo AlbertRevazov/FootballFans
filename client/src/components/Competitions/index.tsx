@@ -9,14 +9,20 @@ import { CompetitionTable } from "./sections/Table/CompetitionTable";
 import { Box, Button } from "@mui/material";
 import { ScorersPage } from "./sections/Scorers";
 import { styles } from "./styles";
+import Typography from "@mui/material/Typography";
+import { errorsData } from "../../utils/constants";
 
 export const CompetitionPage: React.FC = () => {
   const [scorers, setScorers] = useState(false);
   const params = useParams();
   const { code } = params;
-  const { isLoading } = useAppSelector((state) => state.competitions);
+  const { isLoading, errorsMessage } = useAppSelector(
+    (state) => state.competitions
+  );
   const dispatch = useAppDispatch();
-  const { tournament } = useAppSelector((state) => state?.competitions);
+  const data = useAppSelector(
+    (state) => state?.competitions.tournament?.standings
+  );
 
   useEffect(() => {
     scorers
@@ -25,37 +31,54 @@ export const CompetitionPage: React.FC = () => {
   }, [code, scorers]);
 
   return (
-    <Box>
-      <Box sx={styles.buttonsBox}>
-        <Button
-          variant="text"
-          disabled={!scorers}
-          onClick={() => setScorers(false)}
-          sx={[styles.darkTableCell, styles.buttonsTable]}
+    <>
+      {!!errorsMessage ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alighItems: "center",
+            margin: "60px",
+          }}
         >
-          Турнирная Таблица
-        </Button>
-        <Button
-          variant="text"
-          disabled={scorers}
-          onClick={() => setScorers(true)}
-          sx={[styles.darkTableCell, styles.buttonsTable]}
-        >
-          Бомбардиры
-        </Button>
-      </Box>
-      {isLoading ? (
-        <Box sx={styles.loading}>
-          <img
-            style={{ width: "300px", height: "300px" }}
-            src="/gif/loading.gif"
-          />
+          <Typography sx={styles.error}>
+            {errorsData[`${errorsMessage}`]}
+          </Typography>
         </Box>
-      ) : !scorers ? (
-        <CompetitionTable data={tournament?.standings} />
       ) : (
-        <ScorersPage />
+        <Box>
+          <Box sx={styles.buttonsBox}>
+            <Button
+              variant="text"
+              disabled={!scorers}
+              onClick={() => setScorers(false)}
+              sx={[styles.darkTableCell, styles.buttonsTable]}
+            >
+              Турнирная Таблица
+            </Button>
+            <Button
+              variant="text"
+              disabled={scorers}
+              onClick={() => setScorers(true)}
+              sx={[styles.darkTableCell, styles.buttonsTable]}
+            >
+              Бомбардиры
+            </Button>
+          </Box>
+          {isLoading ? (
+            <Box sx={styles.loading}>
+              <img
+                style={{ width: "300px", height: "300px" }}
+                src="/gif/loading.gif"
+              />
+            </Box>
+          ) : !scorers ? (
+            <CompetitionTable data={data} />
+          ) : (
+            <ScorersPage />
+          )}
+        </Box>
       )}
-    </Box>
+    </>
   );
 };

@@ -7,21 +7,21 @@ export const styles = {
   },
   sectionBox: {
     width: "400px",
-    boxShadow: "10px 5px 5px gray",
-    borderRadius: "24px",
     padding: "40px",
+    borderRadius: "24px",
+    boxShadow: "10px 5px 5px gray",
     backgroundColor: "floralwhite",
   },
-  divider:{
-    borderColor: "#202020"
+  divider: {
+    borderColor: "#202020",
   },
-  img:{
-    width: "100px", 
-    height: "100px"  
+  img: {
+    width: "100px",
+    height: "100px",
   },
-  aboutContent:{
-    display: "flex", 
-    flexDirection: "column"
+  aboutContent: {
+    display: "flex",
+    flexDirection: "column",
   },
   content: {
     display: "flex",
@@ -40,5 +40,28 @@ export const styles = {
     fontFamily: "Montserrat Alternates",
     fontSize: "16px",
     color: "#202020",
+  },
+  error:{
+    fontFamily: "Montserrat Alternates",
+    fontSize: "26px",
+    color: "red",
+  },
+  buttonWrapper: {
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+    marginTop: "40px",
+  },
+  button: {
+    width: "280px",
+    height: "48px",
+    fontFamily: "Montserrat Alternates",
+    fontSize: "16px",
+    color: "#202020",
+    borderRadius: "10px",
+    ":hover": {
+      backgroundColor: "darkseagreen",
+      color: "#FFFFFF",
+    },
   },
 } as any;

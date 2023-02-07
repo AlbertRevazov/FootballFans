@@ -10,6 +10,11 @@ export const styles = {
     fontSize: "24px",
     fontFamily: "Montserrat Alternates",
   },
+  error: {
+    color: "red",
+    fontSize: "26px",
+    fontFamily: "Montserrat Alternates",
+  },
   buttonsBox: {
     display: "flex",
     justifyContent: "space-around",

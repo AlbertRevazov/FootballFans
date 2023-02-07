@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import { Logo } from "../Logo";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { checkIsAuth, logout } from "../../redux/features/auth/authSlice";
@@ -50,30 +50,35 @@ export const Nav: React.FC = () => {
               </Box>
             ))}
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-around",
-              alignItems: "center",
-            }}
-          >
-            <Link to={"/lk"} style={{ textDecoration: "none" }}>
-              <Typography
-                sx={[
-                  styles.font,
-                  {
-                    ":hover": {
-                      borderBottom: "3px solid darkseagreen",
+          {isAuth && (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
+              <Link to={"/lk"} style={{ textDecoration: "none" }}>
+                <Typography
+                  sx={[
+                    styles.font,
+                    {
+                      ":hover": {
+                        borderBottom: "3px solid darkseagreen",
+                      },
                     },
-                  },
-                ]}
-              >
-                Личный Кабинет
-              </Typography>
-            </Link>
-
-            <img style={{ width: "60px", height: "60px" }} src={user?.image} />
-          </Box>
+                  ]}
+                >
+                  Личный Кабинет
+                </Typography>
+              </Link>
+              <Avatar
+                sx={{ marginLeft: "12px" }}
+                alt={user?.name}
+                src={user?.image}
+              />
+            </Box>
+          )}
         </Box>
       ) : (
         <>

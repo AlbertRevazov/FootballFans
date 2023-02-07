@@ -90,26 +90,6 @@ router.post("/signIn", async (req, res) => {
     console.log(error);
   }
 });
-router.post(
-  "/userAvatar",
-  checkAuth,
-  upload.single("avatar"),
-  async (req, res) => {
-    try {
-      const user = await Users.findOne({ where: { id: req.userId } });
-      if (user && upload.single) {
-        await Users.update(
-          { image: req.file.path.replace("public", "") },
-          { where: { id: req.userId } }
-        );
-        res.json({ user, message: "Фотография добавлена!" });
-      }
-      // res.json({ message: "Ошибка" });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
 
 router.get("/me", checkAuth, async (req, res) => {
   try {
@@ -138,4 +118,43 @@ router.get("/me", checkAuth, async (req, res) => {
   }
 });
 
+router.post(
+  "/userAvatar",
+  checkAuth,
+  upload.single("avatar"),
+  async (req, res) => {
+    try {
+      const user = await Users.findOne({ where: { id: req.userId } });
+      if (user && upload.single) {
+        await Users.update(
+          { image: req.file.path.replace("public", "") },
+          { where: { id: req.userId } }
+        );
+        res.json({ user, message: "Фотография добавлена!" });
+      }
+      // res.json({ message: "Ошибка" });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+router.get("/delete", checkAuth, async (req, res) => {
+  try {
+    const user = await Users.findOne({ where: { id: req.userId } }); // ищем юзера в базе
+    if (!user) {
+      return res.json({
+        message: "Такой пользователь не существует",
+      });
+    }
+    if (user) {
+      await Users.update({ image: null }, { where: { id: req.userId } });
+      return res.json({ user, message: "Фотография добавлена!" });
+    }
+  } catch (error) {
+    res.json({
+      message: "Нет доступа!",
+    });
+  }
+});
 module.exports = router;

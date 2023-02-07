@@ -19,7 +19,6 @@ export const MapPage: React.FC = () => {
         >
           {/* buttons for routes and type layers  */}
           <RouteButton options={{ float: "right" }} />
-          <TypeSelector options={{ float: "right" }} />
         </Map>
       </YMaps>
     </Box>
